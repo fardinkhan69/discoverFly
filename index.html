@@ -11,6 +11,7 @@
         rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
     <!-- Stylesheet -->
+   
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -29,24 +30,24 @@
 
     <!--Booking Section-->
     <main class="main-content container">
-        <div class="booking-form">
+        <div class="booking-form" id="booking_form">
             <h3>Booking Flights</h3>
             <div class="input-group">
                 <label for="">Flying From</label>
-                <input class="inp-style" type="text" name="" placeholder="Dhake, Bangladesh">
+                <input class="inp-style" type="text" name="" id="flyingForm" placeholder="Dhake, Bangladesh">
             </div>
             <div class="input-group">
                 <label for="">Flying To</label>
-                <input class="inp-style" type="text" name="" placeholder="New York, United States">
+                <input class="inp-style" type="text" name="" id="flyingTo" placeholder="New York, United States">
             </div>
             <div class="inputs">
                 <div class="input-group">
                     <label" for="">Departure</label>
-                    <input class="inp-style" type="date" name="">
+                    <input class="inp-style" type="date" id="depertureDate" name="">
                 </div>
                 <div class="input-group">
                     <label for="">Return</label>
-                    <input class="inp-style" type="date" name="">
+                    <input class="inp-style" id="returnDate" type="date" name="">
                 </div>
             </div>
             <div class="input-group f-class">
@@ -105,6 +106,48 @@
             <button class="btn-style" onclick="confirmationMessage()">Book Now</button>
         </div>
 
+         <!-- This will show after clicking in the book now button -->
+        <div id="confiramtion_message">
+            <h2>Congratulations Your ticktet has been booked</h2>
+
+            <h1>Your Details:</h1>
+            <table class="table">
+                <tr>
+                    <td>Flying Form</td>
+                    <td id="flyingFormConfirm"></td>
+                </tr>
+                <tr>
+                    <td>Flying To </td>
+                    <td id="flyingToConfirm"></td>
+                </tr>
+                <tr>
+                    <td>Departure Date:</td>
+                    <td id="departureConfirm"></td>
+                </tr>
+                <tr>
+                    <td>Return Date</td>
+                    <td id="returnConfirm"></td>
+                </tr>
+
+                <tr>
+                    <td>First Class Tickets</td>
+                    <td id="first_class_ticket_confirm"></td>
+                </tr>
+                <tr>
+                    <td>Economic Class Tickets</td>
+                    <td id="economic_class_confirm"></td>
+                </tr>
+                <tr>
+                    <td>Tax</td>
+                    <td id="taxConfirm"></td>
+                </tr>
+                <tr>
+                    <td>Total</td>
+                    <td id="totalConfirm"></td>
+                </tr>
+            </table>
+        </div>
+
         <div class="booking-content">
             <h1>discover <br> around the world</h1>
             <p>Lorem ipsum dolor sit amet consectetur adipisicingelit. Provident voluptatibus quam fuga laborumalias veniam libero autem quasi maxime ullam vero nama imi dolor, architecto ab facilis eaque deserunt nobise voluptatibus quam</p>
@@ -135,7 +178,7 @@
 
         function calculateTotal (){
             const firstClassCount = ticketCount("first-class");
-            const economyClassCount = ticketCount("economy-class")
+            const economyClassCount = ticketCount("economy-class");
 
             const subTotalPrice = firstClassCount * 150 + economyClassCount * 100;
             document.getElementById('sub-total').innerText = '$'+ subTotalPrice;
@@ -157,11 +200,38 @@
         }
 
         //js code for give user a confiramtion message after clicking book now button 
+
         function confirmationMessage(){
-            const totalAmount = document.getElementById("total").innerText;
-            const firstClassTicketCount = document.getElementById('first-class-count').value;
-            const economyClassCount = document.getElementById('economy-class-count').value;
-            alert("Congratulations ! Your ticket Has been Booked . And Total charge is: "+totalAmount+" You have "+firstClassTicketCount+" First class tickets And "+economyClassCount+ " Economy Class Ticket ");
+            const flyingForm = document.getElementById("flyingForm").value;
+            const flyingTo = document.getElementById("flyingTo").value;
+            const departureDate = document.getElementById("depertureDate").value;
+            const returnDate = document.getElementById('returnDate').value;
+            const firstClassCount = ticketCount("first-class");
+            const economyClassCount = ticketCount("economy-class");
+            const tax = document.getElementById('tax').innerText;
+            const total = document.getElementById("total").innerText;
+
+            if(!flyingForm ||
+            !flyingTo ||
+            !departureDate ||
+            !returnDate ||
+            !tax ||
+            ! total){
+                alert("Please fill up everything to continue")
+            }
+            else{
+                document.getElementById("booking_form").style.display = 'none';
+                document.getElementById('confiramtion_message').style.display = 'block';
+                document.getElementById('flyingFormConfirm').innerText = flyingForm;
+                document.getElementById('flyingToConfirm').innerText = flyingTo;
+                document.getElementById('departureConfirm').innerText = departureDate;
+                document.getElementById('returnConfirm').innerText= returnDate;
+                document.getElementById('first_class_ticket_confirm').innerText  = firstClassCount;
+                document.getElementById('economic_class_confirm').innerText = economyClassCount;
+                document.getElementById('taxConfirm').innerText = tax;
+                document.getElementById('totalConfirm').innerText = total;
+            }
+
         }
 
     </script>
