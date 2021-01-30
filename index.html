@@ -217,11 +217,13 @@
             !flyingTo ||
             !departureDate ||
             !returnDate ||
+            firstClassCount == 0 &&
+            economyClassCount == 0||
             !tax ||
             ! total){
-                alert("Please fill up every input field to continue")
+                alert("Please fill up every input to continue")
             }
-            else{
+            else if(firstClassCount>0 || economyClassCount>0){
                 document.getElementById("booking_form").style.display = 'none';
                 document.getElementById('confiramtion_message').style.display = 'block';
                 document.getElementById('flyingFormConfirm').innerText = flyingForm;
